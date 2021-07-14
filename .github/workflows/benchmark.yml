@@ -15,7 +15,7 @@ on:
 jobs:
   local:
     if: always()
-    runs-on: ubuntu-latest
+    runs-on: contabo2
 
     steps:
       - uses: actions/checkout@v2
