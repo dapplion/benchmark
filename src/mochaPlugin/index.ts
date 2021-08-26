@@ -1,13 +1,9 @@
 import fs from "fs";
 import path from "path";
-import {resultsByRootSuite} from "./globalState";
-import {BenchmarkOpts, BenchmarkRunOptsWithFn, runBenchFn} from "./runBenchFn";
+import {BenchmarkOpts} from "../types";
+import {optsByRootSuite, optsMap, resultsByRootSuite} from "./globalState";
+import {BenchmarkRunOptsWithFn, runBenchFn} from "./runBenchFn";
 import {getRootSuite, getParentSuite} from "./utils";
-
-/**
- * Map to persist options set in describe blocks
- */
-const optsMap = new Map<Mocha.Suite, BenchmarkOpts>();
 
 type PartialBy<T, K extends keyof T> = Omit<T, K> & Partial<Pick<T, K>>;
 
@@ -30,12 +26,14 @@ const itBenchFn: ItBenchFn = function itBench<T, T2>(
   itFn(opts.id, async function () {
     const parent = getParentSuite(this);
     const optsParent = getOptsFromParent(parent);
-    opts = Object.assign({}, optsParent, opts);
 
     // Get results array from root suite
     const rootSuite = getRootSuite(parent);
     const results = resultsByRootSuite.get(rootSuite);
-    if (!results) throw Error("root suite not found");
+    const rootOpts = optsByRootSuite.get(rootSuite);
+    if (!results || !rootOpts) throw Error("root suite not found");
+
+    opts = Object.assign({}, rootOpts, optsParent, opts);
 
     // Ensure bench id is unique
     if (results.has(opts.id)) {

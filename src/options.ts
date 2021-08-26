@@ -1,5 +1,5 @@
 import {Options} from "yargs";
-import {Opts} from "./types";
+import {Opts, BenchmarkOpts} from "./types";
 import {FileCollectionOptions} from "./utils/mochaCliExports";
 
 export const optionsDefault = {
@@ -9,7 +9,8 @@ export const optionsDefault = {
 };
 
 type ICliCommandOptions<OwnArgs> = Required<{[key in keyof OwnArgs]: Options}>;
-type CliOpts = Omit<Opts, "fileGlob" | keyof FileCollectionOptions>;
+type CliOpts = Omit<Opts, "fileGlob" | keyof FileCollectionOptions> &
+  Omit<BenchmarkOpts, "only" | "skip" | "noThreshold">;
 
 export const options: ICliCommandOptions<CliOpts> = {
   defaultBranch: {
@@ -72,5 +73,52 @@ export const options: ICliCommandOptions<CliOpts> = {
     alias: ["s3"],
     description: "Persist benchmark history in an Amazon S3 bucket. Requires Github authentication",
     type: "string",
+  },
+
+  // BenchmarkOpts
+
+  maxRuns: {
+    type: "number",
+    description: "Max number of fn() runs, after which the benchmark stops",
+  },
+  minRuns: {
+    type: "number",
+    description: "Min number of fn() runs before considering stopping the benchmark after converging",
+  },
+  maxMs: {
+    type: "number",
+    description: "Max total miliseconds of runs, after which the benchmark stops",
+  },
+  minMs: {
+    type: "number",
+    description: "Min total miiliseconds of runs before considering stopping the benchmark after converging",
+  },
+  maxWarmUpMs: {
+    type: "number",
+    description:
+      "Maximum real benchmark function run time before starting to count towards results. Set to 0 to not warm-up. May warm up for less ms if the `maxWarmUpRuns` condition is met first.",
+  },
+  maxWarmUpRuns: {
+    type: "number",
+    description:
+      "Maximum benchmark function runs before starting to count towards results. Set to 0 to not warm-up. May warm up for less ms if the `maxWarmUpMs` condition is met first.",
+  },
+  convergeFactor: {
+    type: "number",
+    description: "Convergance factor (0,1) at which the benchmark automatically stops. Set to 1 to disable",
+  },
+  runsFactor: {
+    type: "number",
+    description:
+      "If fn() contains a foor loop repeating a task N times, you may set runsFactor = N to scale down the results.",
+  },
+  yieldEventLoopAfterEach: {
+    type: "boolean",
+    description:
+      "Run `sleep(0)` after each fn() call. Use when the event loop needs to tick to free resources created by fn()",
+  },
+  timeout: {
+    type: "number",
+    description: "Set timeout for it() runs",
   },
 };

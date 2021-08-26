@@ -2,7 +2,7 @@ import * as github from "@actions/github";
 import {getHistoryProvider} from "./history";
 import {resolveShouldPersist} from "./history/shouldPersist";
 import {validateBenchmark} from "./history/schema";
-import {Benchmark, Opts} from "./types";
+import {Benchmark, BenchmarkOpts, Opts} from "./types";
 import {renderCompareWith, resolveCompareWith, resolvePrevBenchmark} from "./compare";
 import {parseBranchFromRef, getCurrentCommitInfo, shell, getCurrentBranch} from "./utils";
 import {runMochaBenchmark} from "./mochaPlugin/mochaRunner";
@@ -12,7 +12,7 @@ import {isGaRun} from "./github/context";
 
 /* eslint-disable no-console */
 
-export async function run(opts: Opts): Promise<void> {
+export async function run(opts: Opts & BenchmarkOpts): Promise<void> {
   // Sanitize opts
   if (isNaN(opts.threshold)) throw Error("opts.threshold is not a number");
 

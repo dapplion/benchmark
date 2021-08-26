@@ -15,6 +15,71 @@ export type Opts = Partial<FileCollectionOptions> & {
   historyS3?: boolean;
 };
 
+export type BenchmarkOpts = {
+  /** Max number of fn() runs, after which the benchmark stops */
+  maxRuns?: number;
+  /** Min number of fn() runs before considering stopping the benchmark after converging */
+  minRuns?: number;
+  /** Max total miliseconds of runs, after which the benchmark stops */
+  maxMs?: number;
+  /** Min total miiliseconds of runs before considering stopping the benchmark after converging */
+  minMs?: number;
+  /**
+   * Maximum real benchmark function run time before starting to count towards results. Set to 0 to not warm-up.
+   * May warm up for less ms if the `maxWarmUpRuns` condition is met first.
+   */
+  maxWarmUpMs?: number;
+  /**
+   * Maximum benchmark function runs before starting to count towards results. Set to 0 to not warm-up.
+   * May warm up for less ms if the `maxWarmUpMs` condition is met first.
+   */
+  maxWarmUpRuns?: number;
+  /** Convergance factor (0,1) at which the benchmark automatically stops. Set to 1 to disable */
+  convergeFactor?: number;
+  /** If fn() contains a foor loop repeating a task N times, you may set runsFactor = N to scale down the results. */
+  runsFactor?: number;
+  /** Run `sleep(0)` after each fn() call. Use when the event loop needs to tick to free resources created by fn() */
+  yieldEventLoopAfterEach?: boolean;
+  // For mocha
+  only?: boolean;
+  skip?: boolean;
+  timeout?: number;
+  // For reporter
+  /** Customize the threshold for this specific benchmark. Set to Infinity to disable it */
+  threshold?: number;
+  /** Equivalent to setting threshold = Infinity */
+  noThreshold?: boolean;
+};
+
+/** Manual lodash.pick() function. Ensure no unwanted options end up in optsByRootSuite */
+export function onlyBenchmarkOpts(opts: BenchmarkOpts): BenchmarkOpts {
+  // Define in this way so Typescript guarantees all keys are considered
+  const keysObj: Record<keyof BenchmarkOpts, true> = {
+    maxRuns: true,
+    minRuns: true,
+    maxMs: true,
+    minMs: true,
+    maxWarmUpMs: true,
+    maxWarmUpRuns: true,
+    convergeFactor: true,
+    runsFactor: true,
+    yieldEventLoopAfterEach: true,
+    only: true,
+    skip: true,
+    timeout: true,
+    threshold: true,
+    noThreshold: true,
+  };
+
+  const optsOut = {} as Record<keyof BenchmarkOpts, BenchmarkOpts[keyof BenchmarkOpts]>;
+  for (const key of Object.keys(keysObj) as (keyof BenchmarkOpts)[]) {
+    if (opts[key] !== undefined) {
+      optsOut[key] = opts[key];
+    }
+  }
+  return optsOut as BenchmarkOpts;
+}
+
 export type BenchmarkResults = BenchmarkResult[];
 
 /** Time results for a single benchmark item */
