@@ -41,8 +41,8 @@ const itBenchFn: ItBenchFn = function itBench<T, T2>(
     }
 
     // Extend timeout if maxMs is set
-    if (opts.timeout !== undefined) {
-      this.timeout(opts.timeout);
+    if (opts.timeoutBench !== undefined) {
+      this.timeout(opts.timeoutBench);
     } else {
       const timeout = this.timeout();
       if (opts.maxMs && opts.maxMs > timeout) {

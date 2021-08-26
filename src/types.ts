@@ -40,15 +40,18 @@ export type BenchmarkOpts = {
   runsFactor?: number;
   /** Run `sleep(0)` after each fn() call. Use when the event loop needs to tick to free resources created by fn() */
   yieldEventLoopAfterEach?: boolean;
-  // For mocha
-  only?: boolean;
-  skip?: boolean;
-  timeout?: number;
+  /** Hard timeout, enforced by mocha. */
+  // NOTE: Must not use `.timeout` or it collisions with mocha's .timeout option. It defaults to 2000 and messed up everything
+  timeoutBench?: number;
   // For reporter
   /** Customize the threshold for this specific benchmark. Set to Infinity to disable it */
   threshold?: number;
   /** Equivalent to setting threshold = Infinity */
   noThreshold?: boolean;
+
+  // For mocha
+  only?: boolean;
+  skip?: boolean;
 };
 
 /** Manual lodash.pick() function. Ensure no unwanted options end up in optsByRootSuite */
@@ -64,11 +67,11 @@ export function onlyBenchmarkOpts(opts: BenchmarkOpts): BenchmarkOpts {
     convergeFactor: true,
     runsFactor: true,
     yieldEventLoopAfterEach: true,
-    only: true,
-    skip: true,
-    timeout: true,
+    timeoutBench: true,
     threshold: true,
     noThreshold: true,
+    only: true,
+    skip: true,
   };
 
   const optsOut = {} as Record<keyof BenchmarkOpts, BenchmarkOpts[keyof BenchmarkOpts]>;

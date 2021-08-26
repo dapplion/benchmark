@@ -117,8 +117,8 @@ export const options: ICliCommandOptions<CliOpts> = {
     description:
       "Run `sleep(0)` after each fn() call. Use when the event loop needs to tick to free resources created by fn()",
   },
-  timeout: {
+  timeoutBench: {
     type: "number",
-    description: "Set timeout for it() runs",
+    description: "Hard timeout, enforced by mocha.",
   },
 };
