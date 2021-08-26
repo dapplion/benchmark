@@ -16,6 +16,7 @@ export const options: ICliCommandOptions<CliOpts> = {
   defaultBranch: {
     description: "Provide the default branch of this repository to prevent fetching from Github",
     type: "string",
+    group: "Options:",
   },
   persistBranches: {
     description: "Choose what branches to persist benchmark data",
@@ -80,45 +81,55 @@ export const options: ICliCommandOptions<CliOpts> = {
   maxRuns: {
     type: "number",
     description: "Max number of fn() runs, after which the benchmark stops",
+    group: "itBench() options",
   },
   minRuns: {
     type: "number",
     description: "Min number of fn() runs before considering stopping the benchmark after converging",
+    group: "itBench() options",
   },
   maxMs: {
     type: "number",
     description: "Max total miliseconds of runs, after which the benchmark stops",
+    group: "itBench() options",
   },
   minMs: {
     type: "number",
     description: "Min total miiliseconds of runs before considering stopping the benchmark after converging",
+    group: "itBench() options",
   },
   maxWarmUpMs: {
     type: "number",
     description:
       "Maximum real benchmark function run time before starting to count towards results. Set to 0 to not warm-up. May warm up for less ms if the `maxWarmUpRuns` condition is met first.",
+    group: "itBench() options",
   },
   maxWarmUpRuns: {
     type: "number",
     description:
       "Maximum benchmark function runs before starting to count towards results. Set to 0 to not warm-up. May warm up for less ms if the `maxWarmUpMs` condition is met first.",
+    group: "itBench() options",
   },
   convergeFactor: {
     type: "number",
     description: "Convergance factor (0,1) at which the benchmark automatically stops. Set to 1 to disable",
+    group: "itBench() options",
   },
   runsFactor: {
     type: "number",
     description:
       "If fn() contains a foor loop repeating a task N times, you may set runsFactor = N to scale down the results.",
+    group: "itBench() options",
   },
   yieldEventLoopAfterEach: {
     type: "boolean",
     description:
       "Run `sleep(0)` after each fn() call. Use when the event loop needs to tick to free resources created by fn()",
+    group: "itBench() options",
   },
   timeoutBench: {
     type: "number",
     description: "Hard timeout, enforced by mocha.",
+    group: "itBench() options",
   },
 };
