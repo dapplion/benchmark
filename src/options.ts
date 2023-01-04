@@ -56,6 +56,10 @@ export const options: ICliCommandOptions<CliOpts> = {
     description: "Exit cleanly even if a preformance regression was found",
     type: "boolean",
   },
+  skipPostComment: {
+    description: "Skip post Github comment step if run on Github CI",
+    type: "boolean",
+  },
   historyLocal: {
     alias: ["local"],
     description:

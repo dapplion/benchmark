@@ -10,6 +10,7 @@ export type Opts = Partial<FileCollectionOptions> & {
   prune?: boolean;
   persist?: boolean;
   noThrow?: boolean;
+  skipPostComment?: boolean;
   historyLocal?: string | boolean;
   historyGaCache?: string | boolean;
   historyS3?: boolean;
