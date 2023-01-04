@@ -58,7 +58,7 @@ export async function run(opts: Opts & BenchmarkOpts): Promise<void> {
 
   const resultsComp = computeBenchComparision(currBench, prevBench, opts.threshold);
 
-  if (isGaRun()) {
+  if (!opts.skipPostComment && isGaRun()) {
     await postGaComment(resultsComp);
   }
 
