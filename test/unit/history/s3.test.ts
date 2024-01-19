@@ -1,17 +1,17 @@
 import {expect} from "chai";
-import S3 from "aws-sdk/clients/s3";
+import {S3} from "@aws-sdk/client-s3";
 import {Benchmark} from "../../../src/types";
 import {S3HistoryProvider} from "../../../src/history/s3";
 import dotenv from "dotenv";
 dotenv.config();
 
 describe("benchmark history S3 paths", () => {
-  const Bucket = "myproject-benchmark-data";
+  const bucket = "myproject-benchmark-data";
   const keyPrefix = "myorg/myproject/Linux";
 
   let historyProvider: S3HistoryProvider;
   before(() => {
-    historyProvider = new S3HistoryProvider({Bucket, keyPrefix});
+    historyProvider = new S3HistoryProvider({bucket, keyPrefix});
   });
 
   it("getLatestInBranchKey", () => {
@@ -72,7 +72,7 @@ describe.skip("benchmark history S3", function () {
     ];
     for (const key of keys) {
       try {
-        await s3.deleteObject({Bucket: config.Bucket, Key: key}).promise();
+        await s3.deleteObject({Bucket: config.bucket, Key: key});
       } catch (e) {
         console.error(`Error deleting key ${key}`, e);
       }
