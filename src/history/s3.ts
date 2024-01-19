@@ -1,12 +1,16 @@
 import path from "path";
-import S3 from "aws-sdk/clients/s3";
+import {S3, S3ClientConfig} from "@aws-sdk/client-s3";
+import {fromIni} from "@aws-sdk/credential-providers";
 import {Benchmark, BenchmarkResults} from "../types";
 import {fromCsv, toCsv, extendError, AwsError} from "../utils";
 import {HistoryProviderType, IHistoryProvider} from "./provider";
 
-export type S3Config = Pick<S3.Types.ClientConfiguration, "accessKeyId" | "secretAccessKey" | "region" | "endpoint"> & {
-  Bucket: string;
+export type S3Config = Pick<S3ClientConfig, "region" | "endpoint"> & {
+  bucket: string;
   keyPrefix: string;
+  accessKeyId?: string;
+  secretAccessKey?: string;
+  profile?: string; // from INI file
 };
 
 const historyDir = "history";
@@ -23,7 +27,19 @@ export class S3HistoryProvider implements IHistoryProvider {
   private s3: S3;
 
   constructor(private readonly config: S3Config) {
-    this.s3 = new S3(config);
+    if (!(config.profile || (config.accessKeyId && config.secretAccessKey))) {
+      throw new Error("No S3credentials provided");
+    }
+    const credentials = config.profile
+      ? fromIni({profile: config.profile})
+      : {
+          accessKeyId: config.accessKeyId as string,
+          secretAccessKey: config.secretAccessKey as string,
+        };
+    this.s3 = new S3({
+      region: config.region,
+      credentials,
+    });
   }
 
   /**
@@ -45,7 +61,17 @@ export class S3HistoryProvider implements IHistoryProvider {
    * https://docs.aws.amazon.com/sdk-for-javascript/v2/developer-guide/loading-node-credentials-environment.html
    */
   static fromEnv(): S3HistoryProvider {
-    const {S3_ACCESS_KEY, S3_SECRET_KEY, S3_REGION, S3_BUCKET, S3_ENDPOINT, S3_KEY_PREFIX} = process.env;
+    const {
+      AWS_PROFILE,
+      S3_ACCESS_KEY,
+      AWS_ACCESS_KEY_ID,
+      S3_SECRET_KEY,
+      AWS_SECRET_ACCESS_KEY,
+      S3_REGION,
+      S3_BUCKET,
+      S3_ENDPOINT,
+      S3_KEY_PREFIX,
+    } = process.env;
 
     if (!S3_BUCKET) throw Error("No ENV S3_BUCKET");
     if (!S3_KEY_PREFIX) throw Error("No ENV S3_KEY_PREFIX");
@@ -55,17 +81,18 @@ export class S3HistoryProvider implements IHistoryProvider {
     // S3_ENDPOINT is optional
 
     return new S3HistoryProvider({
-      accessKeyId: ifSet(S3_ACCESS_KEY),
-      secretAccessKey: ifSet(S3_SECRET_KEY),
-      region: ifSet(S3_REGION),
-      Bucket: S3_BUCKET,
-      endpoint: ifSet(S3_ENDPOINT),
+      bucket: S3_BUCKET,
       keyPrefix: S3_KEY_PREFIX,
+      accessKeyId: ifSet(S3_ACCESS_KEY) || ifSet(AWS_ACCESS_KEY_ID),
+      secretAccessKey: ifSet(S3_SECRET_KEY) || ifSet(AWS_SECRET_ACCESS_KEY),
+      profile: ifSet(AWS_PROFILE),
+      region: ifSet(S3_REGION),
+      endpoint: ifSet(S3_ENDPOINT),
     });
   }
 
   providerInfo(): string {
-    return `S3HistoryProvider, Bucket ${this.config.Bucket}`;
+    return `S3HistoryProvider, Bucket ${this.config.bucket}`;
   }
 
   async readLatestInBranch(branch: string): Promise<Benchmark | null> {
@@ -82,10 +109,9 @@ export class S3HistoryProvider implements IHistoryProvider {
     const objects = await this.s3
       .listObjects({
         Prefix: this.getHistoryDir(),
-        Bucket: this.config.Bucket,
+        Bucket: this.config.bucket,
         MaxKeys: maxItems,
       })
-      .promise()
       .catch((e) => {
         throw extendError(e, "Error on listObjects");
       });
@@ -131,10 +157,9 @@ export class S3HistoryProvider implements IHistoryProvider {
   private async readBenchFile(key: string): Promise<Benchmark> {
     const res = await this.s3
       .getObject({
-        Bucket: this.config.Bucket,
+        Bucket: this.config.bucket,
         Key: key,
       })
-      .promise()
       .catch((e) => {
         throw extendError(e as Error, `Error on getObject ${key}`);
       });
@@ -143,14 +168,7 @@ export class S3HistoryProvider implements IHistoryProvider {
       throw Error("s3 response.Body is falsy");
     }
 
-    let str: string;
-    if (typeof res.Body === "string") {
-      str = res.Body;
-    } else {
-      const buff = Buffer.from(res.Body as ArrayBuffer);
-      str = buff.toString("utf8");
-    }
-
+    const str = await res.Body.transformToString("utf8");
     const {data, metadata} = fromCsv<BenchmarkResults>(str);
     const csvMeta = metadata as unknown as CsvMeta;
     return {commitSha: csvMeta.commit, results: data};
@@ -162,12 +180,11 @@ export class S3HistoryProvider implements IHistoryProvider {
     const str = toCsv(benchmark.results, csvMeta as unknown as Record<string, string>);
 
     await this.s3
-      .upload({
-        Bucket: this.config.Bucket,
+      .putObject({
+        Bucket: this.config.bucket,
         Body: str,
         Key: key,
       })
-      .promise()
       .catch((e) => {
         throw extendError(e as Error, `Error on upload ${key}`);
       });

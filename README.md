@@ -208,7 +208,7 @@ Persist benchmark history in Github Actions cache. Requires Github authenticatio
 
 ### `--historyS3`, `--s3`
 
-Persist benchmark history in an Amazon S3 bucket. Requires Github authentication
+Persist benchmark history in an Amazon S3 bucket. Requires Github authentication. Must pass AWS credentials via environment variables (S3_ACCESS_KEY, S3_SECRET_KEY) or can set AWS_PROFILE to pull from the shared INI credentials file.
 
 - type: string
 - default:
