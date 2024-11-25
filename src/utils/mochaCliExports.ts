@@ -34,6 +34,11 @@ export interface FileCollectionOptions {
   sort: boolean;
 }
 
-export const collectFiles = collectFilesMocha as (fileCollectParams: FileCollectionOptions) => string[];
+export interface FileCollectionResponse {
+  files: string[];
+  unmatchedFiles: string[];
+}
+
+export const collectFiles = collectFilesMocha as (fileCollectParams: FileCollectionOptions) => FileCollectionResponse;
 
 export const handleRequires = handleRequiresMocha as (requires?: string[]) => Promise<unknown>;

@@ -31,7 +31,7 @@ export async function runMochaBenchmark(
     spec: opts.spec ?? [],
   };
   const files = collectFiles(fileCollectParams);
-  mocha.files = files;
+  mocha.files = files.files;
   await mocha.loadFilesAsync();
 
   // Run the tests.
