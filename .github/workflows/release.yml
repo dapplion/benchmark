@@ -11,7 +11,7 @@ jobs:
     runs-on: ubuntu-latest
     steps:
       - name: Checkout code
-        uses: actions/checkout@v2
+        uses: actions/checkout@v4
 
       - name: Get latest tag
         uses: actions-ecosystem/action-get-latest-tag@v1
@@ -21,10 +21,11 @@ jobs:
 
       - name: Create tag
         id: tag
-        uses: butlerlogic/action-autotag@1.1.1
+        uses: butlerlogic/action-autotag@1.1.4
         with:
-          GITHUB_TOKEN: "${{ secrets.GITHUB_TOKEN }}"
           tag_prefix: "v"
+        env: 
+          GITHUB_TOKEN: "${{ secrets.GITHUB_TOKEN }}"
     outputs:
       tag: ${{ steps.tag.outputs.tagname }}
       previous_tag: ${{ steps.get-latest-tag.outputs.tag }}
@@ -36,8 +37,8 @@ jobs:
     needs: tag
     if: needs.tag.outputs.tag != ''
     steps:
-      - uses: actions/checkout@v2
-      - uses: actions/setup-node@v2
+      - uses: actions/checkout@v4
+      - uses: actions/setup-node@v4
         with:
           node-version: "lts/fermium"
 
@@ -46,7 +47,7 @@ jobs:
 
       - name: Generate changelog
         id: changelog
-        uses: heinrichreimer/github-changelog-generator-action@v2.2
+        uses: janheinrichmerker/action-github-changelog-generator@v2.4
         with:
           token: ${{ secrets.GITHUB_TOKEN }}
           issues: "false"
