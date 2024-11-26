@@ -1,6 +1,6 @@
 {
   "name": "@dapplion/benchmark",
-  "version": "0.2.4",
+  "version": "0.2.5",
   "main": "lib/index.js",
   "repository": "git@github.com:dapplion/benchmark.git",
   "author": "dapplion <35266934+dapplion@users.noreply.github.com>",
