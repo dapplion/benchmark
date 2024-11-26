@@ -1,5 +1,3 @@
-/* eslint-disable no-console */
-
 export type BenchmarkResult = {
   id: string;
   averageNs: number;

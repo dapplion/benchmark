@@ -42,7 +42,6 @@ export async function runBenchFn<T, T2>(
 
   const inputAll = opts.before ? await opts.before() : (undefined as unknown as T2);
 
-  // eslint-disable-next-line no-constant-condition
   while (true) {
     const ellapsedMs = Date.now() - startRunMs;
     const mustStop = ellapsedMs >= maxMs || runIdx >= maxRuns;

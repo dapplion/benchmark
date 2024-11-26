@@ -26,7 +26,10 @@ class GaCacheHistoryProvider extends LocalHistoryProvider implements IHistoryPro
   readonly type = HistoryProviderType.GaCache;
   private initializePromise: Promise<unknown> | null = null;
 
-  constructor(private readonly tmpDir: string, private readonly cacheKey: string) {
+  constructor(
+    private readonly tmpDir: string,
+    private readonly cacheKey: string
+  ) {
     super(tmpDir);
   }
 
@@ -60,6 +63,7 @@ class GaCacheHistoryProvider extends LocalHistoryProvider implements IHistoryPro
   }
 
   private async initialize(): Promise<unknown> {
+    // eslint-disable-next-line no-console
     console.log("ENV", process.env);
     if (this.initializePromise === null) {
       this.initializePromise = cache.restoreCache([this.tmpDir], this.cacheKey);
