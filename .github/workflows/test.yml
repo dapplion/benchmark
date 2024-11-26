@@ -5,13 +5,17 @@ on: [pull_request, push]
 jobs:
   test:
     name: Test
+    strategy:
+      fail-fast: false
+      matrix:
+        node: [18, 20, 22]
     runs-on: ubuntu-latest
     steps:
       # <common-build> - Uses YAML anchors in the future
       - uses: actions/checkout@v2
       - uses: actions/setup-node@v2-beta
         with:
-          node-version: "14"
+          node-version: ${{matrix.node}}
       - name: Install
         run: yarn install --frozen-lockfile
       # </common-build>
