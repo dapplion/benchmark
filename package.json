@@ -18,7 +18,7 @@
   "scripts": {
     "build": "tsc -p tsconfig.build.json && chmod +x lib/cli.js",
     "test:unit": "mocha test/unit/**/*.test.ts",
-    "lint": "eslint --color --ext .ts src/ test/",
+    "lint": "eslint --color src/ test/",
     "prepublishOnly": "yarn build",
     "benchmark": "node -r ts-node/register src/cli.ts 'test/perf/**/*.test.ts'",
     "writeDocs": "ts-node scripts/writeOptionsMd.ts"
@@ -29,18 +29,19 @@
     "@types/node": "^15.12.4",
     "@types/rimraf": "^3.0.0",
     "@types/yargs": "^17.0.33",
-    "@typescript-eslint/eslint-plugin": "^4.28.0",
-    "@typescript-eslint/parser": "^4.28.0",
     "chai": "^4.5.0",
     "dotenv": "^10.0.0",
-    "eslint": "^7.29.0",
-    "eslint-plugin-import": "^2.23.4",
-    "eslint-plugin-prettier": "^3.4.0",
+    "eslint": "^9.15.0",
+    "@eslint/js": "^9.15.0",
+    "eslint-plugin-import": "^2.31.0",
+    "eslint-plugin-prettier": "^5.2.1",
+    "eslint-config-prettier": "^9.1.0",
     "mocha": "^10.8.2",
-    "prettier": "^2.3.1",
+    "prettier": "^3.4.0",
     "rimraf": "^3.0.2",
     "ts-node": "^10.9.2",
-    "typescript": "^5.6.3"
+    "typescript": "^5.6.3",
+    "typescript-eslint": "^8.16.0"
   },
   "dependencies": {
     "@actions/cache": "^1.0.7",

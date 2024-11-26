@@ -52,7 +52,6 @@ export function validateBenchmark(data: Benchmark): void {
   const validate = ajv.compile(benchmarkSchema);
   const valid = validate(data);
   if (!valid) {
-    console.log(data);
     throw Error(`Invalid BenchmarkResults ${JSON.stringify(validate.errors, null, 2)}`);
   }
 }
