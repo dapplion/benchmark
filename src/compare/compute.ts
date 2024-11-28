@@ -1,4 +1,4 @@
-import {ResultComparision, BenchmarkComparision, Benchmark, BenchmarkResult} from "../types";
+import {ResultComparision, BenchmarkComparision, Benchmark, BenchmarkResult} from "../types.js";
 
 export function computeBenchComparision(
   currBench: Benchmark,

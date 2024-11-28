@@ -1,5 +1,5 @@
-import {Opts} from "../types";
-import {getDefaultBranch} from "../utils/defaultBranch";
+import {Opts} from "../types.js";
+import {getDefaultBranch} from "../utils/defaultBranch.js";
 
 export async function resolveShouldPersist(opts: Opts, branch: string): Promise<boolean> {
   // Force persist

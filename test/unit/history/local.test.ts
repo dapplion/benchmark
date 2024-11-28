@@ -1,8 +1,8 @@
-import fs from "fs";
+import fs from "node:fs";
 import {expect} from "chai";
 import rimraf from "rimraf";
-import {Benchmark} from "../../../src/types";
-import {LocalHistoryProvider} from "../../../src/history/local";
+import {Benchmark} from "../../../src/types.js";
+import {LocalHistoryProvider} from "../../../src/history/local.js";
 
 describe("benchmark history local", () => {
   const branch = "main";

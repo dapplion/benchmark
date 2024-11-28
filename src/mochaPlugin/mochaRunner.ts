@@ -1,9 +1,9 @@
 // eslint-disable-next-line import/no-extraneous-dependencies
 import Mocha from "mocha";
-import {optsByRootSuite, resultsByRootSuite} from "./globalState";
-import {collectFiles, FileCollectionOptions} from "../utils/mochaCliExports";
-import {benchmarkReporterWithPrev} from "./reporter";
-import {Benchmark, BenchmarkOpts, BenchmarkResult, onlyBenchmarkOpts, Opts} from "../types";
+import {optsByRootSuite, resultsByRootSuite} from "./globalState.js";
+import {collectFiles, FileCollectionOptions} from "../utils/mochaCliExports.js";
+import {benchmarkReporterWithPrev} from "./reporter.js";
+import {Benchmark, BenchmarkOpts, BenchmarkResult, onlyBenchmarkOpts, Opts} from "../types.js";
 
 export async function runMochaBenchmark(
   opts: Opts & BenchmarkOpts,

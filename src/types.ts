@@ -1,4 +1,4 @@
-import {FileCollectionOptions} from "./utils/mochaCliExports";
+import {FileCollectionOptions} from "./utils/mochaCliExports.js";
 
 export type Opts = Partial<FileCollectionOptions> & {
   defaultBranch?: string;

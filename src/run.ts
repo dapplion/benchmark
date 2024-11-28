@@ -1,14 +1,14 @@
 import * as github from "@actions/github";
-import {getHistoryProvider} from "./history";
-import {resolveShouldPersist} from "./history/shouldPersist";
-import {validateBenchmark} from "./history/schema";
-import {Benchmark, BenchmarkOpts, Opts} from "./types";
-import {renderCompareWith, resolveCompareWith, resolvePrevBenchmark} from "./compare";
-import {parseBranchFromRef, getCurrentCommitInfo, shell, getCurrentBranch} from "./utils";
-import {runMochaBenchmark} from "./mochaPlugin/mochaRunner";
-import {computeBenchComparision} from "./compare/compute";
-import {postGaComment} from "./github/comment";
-import {isGaRun} from "./github/context";
+import {getHistoryProvider} from "./history/index.js";
+import {resolveShouldPersist} from "./history/shouldPersist.js";
+import {validateBenchmark} from "./history/schema.js";
+import {Benchmark, BenchmarkOpts, Opts} from "./types.js";
+import {renderCompareWith, resolveCompareWith, resolvePrevBenchmark} from "./compare/index.js";
+import {parseBranchFromRef, getCurrentCommitInfo, shell, getCurrentBranch} from "./utils/index.js";
+import {runMochaBenchmark} from "./mochaPlugin/mochaRunner.js";
+import {computeBenchComparision} from "./compare/compute.js";
+import {postGaComment} from "./github/comment.js";
+import {isGaRun} from "./github/context.js";
 
 /* eslint-disable no-console */
 

@@ -1,7 +1,7 @@
 import {expect} from "chai";
-import S3 from "aws-sdk/clients/s3";
-import {Benchmark} from "../../../src/types";
-import {S3HistoryProvider} from "../../../src/history/s3";
+import S3 from "aws-sdk/clients/s3.js";
+import {Benchmark} from "../../../src/types.js";
+import {S3HistoryProvider} from "../../../src/history/s3.js";
 import dotenv from "dotenv";
 dotenv.config();
 

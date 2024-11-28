@@ -1,4 +1,4 @@
-import {BenchmarkComparision, ResultComparision} from "../types";
+import {BenchmarkComparision, ResultComparision} from "../types.js";
 
 type CommitsSha = Pick<BenchmarkComparision, "currCommitSha" | "prevCommitSha">;
 

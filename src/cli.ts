@@ -1,11 +1,9 @@
-#!/usr/bin/env node
-
 // Must not use `* as yargs`, see https://github.com/yargs/yargs/issues/1131
 import yargs from "yargs";
-import {loadOptions, handleRequires} from "./utils/mochaCliExports";
-import {options, optionsDefault} from "./options";
-import {run} from "./run";
-import {Opts} from "./types";
+import {loadOptions, handleRequires} from "./utils/mochaCliExports.js";
+import {options, optionsDefault} from "./options.js";
+import {run} from "./run.js";
+import {Opts} from "./types.js";
 
 /**
  * Common factory for running the CLI and running integration tests
@@ -15,7 +13,7 @@ const argv = process.argv.slice(2);
 
 const args = loadOptions(argv);
 
-void yargs
+void yargs()
   .env("BENCHMARK")
   .scriptName("benchmark")
   .command({

@@ -1,4 +1,4 @@
-import {BenchmarkResult, BenchmarkOpts} from "../types";
+import {BenchmarkResult, BenchmarkOpts} from "../types.js";
 
 export type BenchmarkRunOpts = BenchmarkOpts & {
   id: string;

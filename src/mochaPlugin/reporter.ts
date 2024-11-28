@@ -1,9 +1,9 @@
 // eslint-disable-next-line import/no-extraneous-dependencies
 import Mocha from "mocha";
-import {Benchmark, BenchmarkResult} from "../types";
-import {resultsByRootSuite} from "./globalState";
-import {formatResultRow} from "./format";
-import {getRootSuite} from "./utils";
+import {Benchmark, BenchmarkResult} from "../types.js";
+import {resultsByRootSuite} from "./globalState.js";
+import {formatResultRow} from "./format.js";
+import {getRootSuite} from "./utils.js";
 
 const {
   EVENT_RUN_BEGIN,
