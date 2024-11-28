@@ -1,16 +1,18 @@
 {
   "name": "@dapplion/benchmark",
-  "version": "0.2.6-rc.1",
+  "version": "0.2.6-rc.2",
   "repository": "git@github.com:dapplion/benchmark.git",
   "author": "dapplion <35266934+dapplion@users.noreply.github.com>",
   "license": "MIT",
   "bin": {
-    "benchmark": "./bin/index.js"
+    "benchmark": "./bin/index.cjs"
   },
   "files": [
     "lib/**/*.d.ts",
+    "lib/**/*.d.ts.map",
     "lib/**/*.js",
     "lib/**/*.js.map",
+    "lib/**/package.json",
     "*.d.ts",
     "*.js",
     "bin"
