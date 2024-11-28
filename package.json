@@ -5,12 +5,14 @@
   "author": "dapplion <35266934+dapplion@users.noreply.github.com>",
   "license": "MIT",
   "bin": {
-    "benchmark": "./bin/index.js"
+    "benchmark": "./bin/index.cjs"
   },
   "files": [
     "lib/**/*.d.ts",
+    "lib/**/*.d.ts.map",
     "lib/**/*.js",
     "lib/**/*.js.map",
+    "lib/**/package.json",
     "*.d.ts",
     "*.js",
     "bin"
