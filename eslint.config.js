@@ -35,6 +35,7 @@ export default ts.config(
       ],
       "func-call-spacing": "error",
       "import/no-duplicates": "off",
+      "import/no-unresolved": ["error", {commonjs: false}],
       "new-parens": "error",
       "no-caller": "error",
       "no-bitwise": "off",
@@ -57,6 +58,12 @@ export default ts.config(
         ecmaVersion: 10,
         project: "./tsconfig.json",
       },
+    },
+    settings: {
+      "import/resolver": {
+        "typescript": {
+        }
+      }
     },
   },
   {
