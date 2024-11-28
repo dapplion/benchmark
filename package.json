@@ -30,7 +30,7 @@
     "test:unit": "mocha test/unit/**/*.test.ts",
     "lint": "eslint --color src/ test/",
     "prepublishOnly": "yarn build",
-    "benchmark": "node -r ts-node/register src/cli.ts 'test/perf/**/*.test.ts'",
+    "benchmark": "node --loader ts-node/esm ./src/cli.ts 'test/perf/**/*.test.ts'",
     "writeDocs": "ts-node scripts/writeOptionsMd.ts"
   },
   "devDependencies": {
