@@ -31,7 +31,7 @@
     "lint": "eslint --color src/ test/",
     "prepublishOnly": "yarn build",
     "benchmark": "node --loader ts-node/esm ./src/cli.ts 'test/perf/**/*.test.ts'",
-    "writeDocs": "ts-node scripts/writeOptionsMd.ts"
+    "writeDocs": "node --loader ts-node/esm scripts/writeOptionsMd.ts"
   },
   "devDependencies": {
     "@types/chai": "^4.2.19",
