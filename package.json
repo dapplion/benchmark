@@ -12,7 +12,8 @@
     "lib/**/*.js",
     "lib/**/*.js.map",
     "*.d.ts",
-    "*.js"
+    "*.js",
+    "bin"
   ],
   "type": "module",
   "main": "./lib/cjs/index.js",
