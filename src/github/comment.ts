@@ -1,7 +1,7 @@
 import * as github from "@actions/github";
-import {BenchmarkComparision} from "../types";
-import {commetToPrUpdatable, commentToCommit} from "./octokit";
-import {getGithubEventData, GithubActionsEventData, renderComment} from "../utils";
+import {BenchmarkComparision} from "../types.js";
+import {commetToPrUpdatable, commentToCommit} from "./octokit.js";
+import {getGithubEventData, GithubActionsEventData, renderComment} from "../utils/index.js";
 
 export async function postGaComment(resultsComp: BenchmarkComparision): Promise<void> {
   switch (github.context.eventName) {

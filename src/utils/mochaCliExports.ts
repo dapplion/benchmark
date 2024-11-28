@@ -1,15 +1,15 @@
 // eslint-disable-next-line @typescript-eslint/ban-ts-comment
 // @ts-ignore
 // eslint-disable-next-line import/no-extraneous-dependencies
-import {lookupFiles as lookupFilesMocha, loadOptions as loadOptionsMocha} from "mocha/lib/cli";
+import {lookupFiles as lookupFilesMocha, loadOptions as loadOptionsMocha} from "mocha/lib/cli/index.js";
 // eslint-disable-next-line @typescript-eslint/ban-ts-comment
 // @ts-ignore
 // eslint-disable-next-line import/no-extraneous-dependencies
-import collectFilesMocha from "mocha/lib/cli/collect-files";
+import collectFilesMocha from "mocha/lib/cli/collect-files.js";
 // eslint-disable-next-line @typescript-eslint/ban-ts-comment
 // @ts-ignore
 // eslint-disable-next-line import/no-extraneous-dependencies
-import {handleRequires as handleRequiresMocha} from "mocha/lib/cli/run-helpers";
+import {handleRequires as handleRequiresMocha} from "mocha/lib/cli/run-helpers.js";
 
 export const lookupFiles = lookupFilesMocha as (
   filepath: string,

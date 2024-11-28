@@ -1,4 +1,4 @@
-import {getContext} from "./context";
+import {getContext} from "./context.js";
 
 const commentTag = "benchmarkbot/action";
 

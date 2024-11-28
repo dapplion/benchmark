@@ -1,4 +1,4 @@
-import {shell} from "./shell";
+import {shell} from "./shell.js";
 
 export async function getCurrentCommitInfo(): Promise<{
   /** commit hash `71f08b12d45d44255c31f7b7d135bd15a93fdaac` */

@@ -1,5 +1,5 @@
 import {expect} from "chai";
-import {toCsv, fromCsv} from "../../../src/utils";
+import {toCsv, fromCsv} from "../../../src/utils/index.js";
 
 describe("utils / file - csv", () => {
   it("Convert to and from CSV", () => {

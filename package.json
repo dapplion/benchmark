@@ -1,12 +1,11 @@
 {
   "name": "@dapplion/benchmark",
   "version": "0.2.5",
-  "main": "lib/index.js",
   "repository": "git@github.com:dapplion/benchmark.git",
   "author": "dapplion <35266934+dapplion@users.noreply.github.com>",
   "license": "MIT",
   "bin": {
-    "benchmark": "lib/cli.js"
+    "benchmark": "./bin/index.js"
   },
   "files": [
     "lib/**/*.d.ts",
@@ -15,8 +14,19 @@
     "*.d.ts",
     "*.js"
   ],
+  "type": "module",
+  "main": "./lib/cjs/index.js",
+  "module": "./lib/esm/index.js",
+  "exports": {
+    ".": {
+      "import": "./lib/esm/index.js",
+      "require": "./lib/cjs/index.js"
+    }
+  },
   "scripts": {
-    "build": "tsc -p tsconfig.build.json && chmod +x lib/cli.js",
+    "build": "yarn build:esm && yarn build:cjs",
+    "build:esm": "tsc -p tsconfig.build.esm.json && echo '{\"type\": \"module\"}' > ./lib/esm/package.json",
+    "build:cjs": "tsc -p tsconfig.build.cjs.json && echo '{\"type\": \"commonjs\"}' > ./lib/cjs/package.json",
     "test:unit": "mocha test/unit/**/*.test.ts",
     "lint": "eslint --color src/ test/",
     "prepublishOnly": "yarn build",
@@ -26,7 +36,7 @@
   "devDependencies": {
     "@types/chai": "^4.2.19",
     "@types/mocha": "^10.0.9",
-    "@types/node": "^15.12.4",
+    "@types/node": "^18.15.3",
     "@types/rimraf": "^3.0.0",
     "@types/yargs": "^17.0.33",
     "chai": "^4.5.0",

@@ -2,9 +2,10 @@
   "compilerOptions": {
     "outDir": "./lib",
 
-    "target": "es2019",
-    "module": "commonjs",
+    "target": "ESNext",
+    "module": "ESNext",
     "pretty": true,
+    "moduleResolution": "node",
     "lib": ["es2020", "esnext.bigint", "es2020.string", "es2020.symbol.wellknown"],
 
     "strict": true,

@@ -1,1 +1,1 @@
-export * from "./mochaPlugin";
+export * from "./mochaPlugin/index.js";

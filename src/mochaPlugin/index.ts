@@ -1,9 +1,9 @@
-import fs from "fs";
-import path from "path";
-import {BenchmarkOpts} from "../types";
-import {optsByRootSuite, optsMap, resultsByRootSuite} from "./globalState";
-import {BenchmarkRunOptsWithFn, runBenchFn} from "./runBenchFn";
-import {getRootSuite, getParentSuite} from "./utils";
+import fs from "node:fs";
+import path from "node:path";
+import {BenchmarkOpts} from "../types.js";
+import {optsByRootSuite, optsMap, resultsByRootSuite} from "./globalState.js";
+import {BenchmarkRunOptsWithFn, runBenchFn} from "./runBenchFn.js";
+import {getRootSuite, getParentSuite} from "./utils.js";
 
 type PartialBy<T, K extends keyof T> = Omit<T, K> & Partial<Pick<T, K>>;
 

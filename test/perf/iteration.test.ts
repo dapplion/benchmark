@@ -1,5 +1,5 @@
-import assert from "assert";
-import {itBench, setBenchOpts} from "../../src";
+import assert from "node:assert";
+import {itBench, setBenchOpts} from "../../src/index.js";
 
 // As of Jun 17 2021
 // Compare state root

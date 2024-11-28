@@ -1,6 +1,6 @@
-import fs from "fs";
-import csvParse from "csv-parse/lib/sync";
-import csvStringify from "csv-stringify/lib/sync";
+import fs from "node:fs";
+import csvParse from "csv-parse/lib/sync.js";
+import csvStringify from "csv-stringify/lib/sync.js";
 
 type CsvMetadata = Record<string, string>;
 // eslint-disable-next-line @typescript-eslint/no-explicit-any

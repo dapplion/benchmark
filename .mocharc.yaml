@@ -1,5 +1,5 @@
-require:
-  - ts-node/register
+loader:
+  - ts-node/esm
 colors: true
 timeout: 5000
 exit: true

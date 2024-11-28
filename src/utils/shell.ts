@@ -1,5 +1,5 @@
-import util from "util";
-import child from "child_process";
+import util from "node:util";
+import child from "node:child_process";
 
 const exec = util.promisify(child.exec);
 
